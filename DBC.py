@@ -8,22 +8,13 @@ if __name__ == '__main__':
     CREATE TABLE IF NOT EXISTS "Weather" (
         "Id" INTEGER PRIMARY KEY,
         "Loc" TEXT,
-        "Rain" INTEGER,
         "RainChance" INTEGER,
-        "Clouds" INTEGER,
         "Date" DATE,
-        "SunRise" TIME,
-        "SunSet" TIME,
+        "Humitiy" INTEGER,
+        "UV" INTEGER,
         "Temp"	INTEGER,
         "Wind" INTEGER
         )""")
-
-    c.execute("""
-    CREATE TABLE IF NOT EXISTS "Clouds" (
-        "Id" INTEGER PRIMARY KEY,
-        "Message" TEXT
-        )""")
-
     con.commit()
     con.close()
 
@@ -32,10 +23,14 @@ else:
     def OutPut(Day=0):
         con = sqlite3.connect("Weather.db")
         c = con.cursor()
-        c.execute("""SELECT Loc, Rain, RainChance, Message.Clouds, Date, SunRise, SunSet, Tamp, Wind 
+        c.execute("""SELECT Loc, RainChance, Date, Temp, Wind 
         FROM Weather 
-        INNER JOIN Clouds
-        ON Clouds.ID = Weather.Clouds
         ORDER BY Date DESC""")
         Data = c.fetchall()[0:Day]
         return Data
+
+    def Input(Loc, Rain, Date, Humitity, UV, Temp, Wind):
+        con = sqlite3.connect("Weather.db")
+        c = con.cursor()
+        c.execute("""INSERT INTO Weather(Loc, RainChance, Date, Humitity, UV, Temp, Wind) VALUES(?,?,?,?,?,?,?)
+        """, (Loc, Rain, Date, Humitity, UV, Temp, Wind,))
