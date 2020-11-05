@@ -12,7 +12,13 @@ app = Flask(__name__)
 def Home():
     # LocWeather: City should be a City class with the current location's weather. (Anthony)
     # Cities: City (array) should contain all the cities data. (Anthony)
-    return render_template('main.html', LocWeather=City.City, Cities=[])
+
+    bris = City.City
+    bris.Name = "Brisbane"
+    bris.RainChance = 10
+    bris.Rain = 10
+    bris.Temperature = 20
+    return render_template('main.html', LocWeather=bris, Cities=[])
 
 
 if __name__ == '__main__':
