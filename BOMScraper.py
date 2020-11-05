@@ -12,6 +12,11 @@ outputlist = []
 Location = Soup.find('title').text
 outputlist.append(Location)
 
+# find Rain Chance based on title
+RainChance = Soup.findAll('td')
+outputlist.append(Location)
+
+
 # find Today based on class
 today = Soup.find('h2', class_="pointer").text
 outputlist.append(today)
@@ -45,7 +50,7 @@ outputlist.append(TempTable)
 
 print(Location)
 print(today)
-print(TempTable)
+# print(TempTable)
 # print(date)
 # print(img)
 # print(rating)
