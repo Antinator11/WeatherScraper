@@ -28,6 +28,7 @@ if __name__ == '__main__':
     con.close()
 
 else:
+    #function to return data for outputting to html
     def OutPut(Day=0):
         con = sqlite3.connect("Weather.db")
         c = con.cursor()
