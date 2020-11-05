@@ -10,7 +10,7 @@ if __name__ == '__main__':
         "Loc" TEXT,
         "Rain" INTEGER,
         "RainChance" INTEGER,
-        "Clounds" INTEGER,
+        "Clouds" INTEGER,
         "Date" DATE,
         "SunRise" TIME,
         "SunSet" TIME,
@@ -26,3 +26,16 @@ if __name__ == '__main__':
 
     con.commit()
     con.close()
+
+else:
+    #function to return data for outputting to html
+    def OutPut(Day=0):
+        con = sqlite3.connect("Weather.db")
+        c = con.cursor()
+        c.execute("""SELECT Loc, Rain, RainChance, Message.Clouds, Date, SunRise, SunSet, Tamp, Wind 
+        FROM Weather 
+        INNER JOIN Clouds
+        ON Clouds.ID = Weather.Clouds
+        ORDER BY Date DESC""")
+        Data = c.fetchall()[0:Day]
+        return Data
