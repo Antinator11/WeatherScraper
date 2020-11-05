@@ -1,6 +1,28 @@
 import sqlite3
 
-con = sqlite3.connect()
-c = con.cursor()
+if __name__ == '__main__':
+    con = sqlite3.connect('Weather.db')
+    c = con.cursor()
 
-con.close()
+    c.execute("""
+    CREATE TABLE IF NOT EXISTS "Weather" (
+        "Id" INTEGER PRIMARY KEY,
+        "Loc" TEXT,
+        "Rain" INTEGER,
+        "RainChance" INTEGER,
+        "Clounds" INTEGER,
+        "Date" DATE,
+        "SunRise" TIME,
+        "SunSet" TIME,
+        "Temp"	INTEGER,
+        "Wind" INTEGER
+        )""")
+
+    c.execute("""
+    CREATE TABLE IF NOT EXISTS "Clouds" (
+        "Id" INTEGER PRIMARY KEY,
+        "Message" TEXT
+        )""")
+
+    con.commit()
+    con.close()
