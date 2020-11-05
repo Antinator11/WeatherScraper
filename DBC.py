@@ -28,3 +28,9 @@ else:
         ORDER BY Date DESC""")
         Data = c.fetchall()[0:Day]
         return Data
+
+    def Input(Loc, Rain, Date, Humitity, UV, Temp, Wind):
+        con = sqlite3.connect("Weather.db")
+        c = con.cursor()
+        c.execute("""INSERT INTO Weather(Loc, RainChance, Date, Humitity, UV, Temp, Wind) VALUES(?,?,?,?,?,?,?)
+        """, (Loc, Rain, Date, Humitity, UV, Temp, Wind,))
